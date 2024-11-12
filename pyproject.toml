@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "tom-demoapp"
+version = "0.1.0"
+description = ""
+authors = ["Joey Chatelain <jchate6@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9.0,<3.13"
+tomtoolkit = "^2.21.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

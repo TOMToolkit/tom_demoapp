@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "tom-demoapp"
 version = "0.1.0"
-description = ""
+description = "A TOMToolkit demo application."
 authors = ["Joey Chatelain <jchate6@gmail.com>"]
 readme = "README.md"
 

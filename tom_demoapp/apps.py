@@ -17,7 +17,7 @@ class TomDemoappConfig(AppConfig):
         - 'text': The text of the button
         """
         return {'namespace': 'demoapp:demo-page',
-                'title': 'Demo Page',
+                'title': 'Demo Target Button',
                 'class': 'btn  btn-danger',
                 'text': 'Demo',
                 }

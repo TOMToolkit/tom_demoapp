@@ -1,0 +1,19 @@
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown">Demo List</a>
+    <ul class="dropdown-menu">
+        <li class="nav-item {% if request.resolver_match.namespace == 'demoapp' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'demoapp:demo-page' %}" style="color:black">Demo 1</a>
+        </li>
+        <li class="nav-item {% if request.resolver_match.namespace == 'demoapp' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'demoapp:demo-page' %}" style="color:black">Demo 2</a>
+        </li>
+        <div class="dropdown-divider"></div>
+        <li class="nav-item {% if request.resolver_match.namespace == 'demoapp' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'demoapp:demo-page' %}" style="color:black">Another Demo</a>
+        </li>
+        <li class="nav-item {% if request.resolver_match.namespace == 'demoapp' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'demoapp:demo-page' %}" style="color:black">Last Demo</a>
+        </li>
+
+    </ul>
+</li>

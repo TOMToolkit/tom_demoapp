@@ -22,6 +22,13 @@ class TomDemoappConfig(AppConfig):
                 'text': 'Demo',
                 }
 
+    def nav_items(self):
+        """
+        Integration point for adding items to the navbar.
+        This method should return a list of partial templates to be included in the navbar.
+        """
+        return ['tom_demoapp/partials/navbar_demo.html', 'tom_demoapp/partials/navbar_list_demo.html']
+
     def include_url_paths(self):
         """
         Integration point for adding URL patterns to the Tom Common URL configuration.

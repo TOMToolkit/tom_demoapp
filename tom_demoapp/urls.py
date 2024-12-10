@@ -7,4 +7,5 @@ app_name = 'tom_demoapp'
 
 urlpatterns = [
     path('<int:pk>/demo', DemoView.as_view(), name='demo-page'),
+    path('', DemoView.as_view(), name='demo-page'),
 ]

@@ -1,0 +1,28 @@
+{% load tom_common_extras %}
+
+<div class="card">
+    <div class="card-header bg-dark text-light">
+        <div style="display: flex; justify-content: space-between">
+            <h4 class="card-title">Demo App Info</h4>
+            <div>
+                <a title="Edit" href="{% url 'demoapp:demo-profile-update' pk=demo_profile.id %}" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+  <div class="card-body">
+      <p>This is a great place to store user information specific to your app.</p>
+      <hr>
+    <dl class="row">
+        {% for key, value in demo_profile_data.items %}
+            {% if value %}
+                <dt class="col-sm-6" >{% verbose_name user key %}</dt>
+                <dd class="col-sm-6">{{ value }}</dd>
+            {% endif %}
+        {% empty %}
+            <p>No DemoApp Profile yet for this user.
+            </p>
+        {% endfor %}
+    </dl>
+  </div>
+</div>
+

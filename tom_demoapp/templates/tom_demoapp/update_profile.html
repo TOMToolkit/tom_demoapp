@@ -1,0 +1,12 @@
+{% extends 'tom_common/base.html' %}
+{% load bootstrap4 %}
+{% block title %}Update Demo Profile{% endblock %}
+{% block content %}
+
+<h3>This is a Demo update form for an App Profile</h3>
+<hr>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+{% endblock %}

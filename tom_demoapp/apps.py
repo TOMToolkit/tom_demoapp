@@ -53,3 +53,16 @@ class TomDemoappConfig(AppConfig):
         """
         return [{'partial': 'tom_demoapp/partials/profile_demo.html',
                  'context': 'tom_demoapp.templatetags.demo_extras.demo_profile_data'}]
+
+    def user_lists(self):
+        """
+        Integration point for adding items to the user list page.
+
+        This method should return a list of dictionaries that include a `partial` key pointing to the path of the html
+        user_list partial. The `context` key should point to the dot separated string path to the templatetag that will
+        return a dictionary containing new context for the accompanying partial.
+        Typically, this partial will be a bootstrap table displaying some app specific user list or similar.
+
+        """
+        return [{'partial': 'tom_demoapp/partials/demo_user_list.html',
+                 'context': 'tom_demoapp.templatetags.demo_extras.demo_user_list'}]

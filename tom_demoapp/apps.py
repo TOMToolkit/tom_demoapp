@@ -25,9 +25,12 @@ class TomDemoappConfig(AppConfig):
     def nav_items(self):
         """
         Integration point for adding items to the navbar.
-        This method should return a list of partial templates to be included in the navbar.
+        This method should return a list of dictionaries that include a `partial` key pointing to the html templates to
+        be included in the navbar. The `position` key, if included, should be either "left" or "right" to specify which
+        side of the navbar the partial should be included on. If not included, a right side nav item is assumed.
         """
-        return ['tom_demoapp/partials/navbar_demo.html', 'tom_demoapp/partials/navbar_list_demo.html']
+        return [{'partial': 'tom_demoapp/partials/navbar_demo.html', 'position': 'right'},
+                {'partial': 'tom_demoapp/partials/navbar_list_demo.html'}]
 
     def include_url_paths(self):
         """

@@ -29,12 +29,12 @@ def demo_profile_data(user):
                 'demo_profile_data': {}}
 
 
-@register.inclusion_tag('tom_demoapp/partials/demo_user_list.html')
+@register.inclusion_tag('tom_demoapp/partials/demo_user_list.html', takes_context=True)
 def demo_user_list(context):
     """
     Returns the app specific user information as a dictionary to be used in the context of the above partial.
     """
 
     users = User.objects.filter(username__startswith='A')
-    context['users'] = users
+    context = {'users': users}
     return context

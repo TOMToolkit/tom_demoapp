@@ -19,11 +19,11 @@ Quick start
         "tom_demoapp",
     ]
 
-4. Paths should be automatically included via tom_common.
+2. Paths should be automatically included via tom_common.
 
-5. Run ``python manage.py migrate`` to create the models.
+3. Run ``python manage.py migrate`` to create the models.
 
-6. Start the development server and visit your tom to see any changes.
+4. Start the development server and visit your tom to see any changes.
 
 App Testing
 -------

@@ -10,7 +10,8 @@ from boot_django import boot_django, APP_NAME  # noqa
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('testname', default='', nargs='?',
-                        help='Dot separated path to specific test module or test function')
+                        help='Module paths to test; '
+                             'can be modulename, modulename.TestCase or modulename.TestCase.test_method')
     parser.add_argument('-v', '--verbosity', default=2, type=int, choices=[0, 1, 2, 3],
                         help='Verbosity level;'
                              ' 0=minimal output, 1=normal output, 2=verbose output, 3=very verbose output')

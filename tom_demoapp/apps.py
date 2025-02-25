@@ -4,8 +4,9 @@ from django.urls import path, include
 
 class TomDemoappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'tom_demoapp'
-    label = 'demoapp'
+    name = 'tom_demoapp'  # Full Python path to the application, e.g. 'django.contrib.admin'
+    label = 'demoapp'  # Short name for the application, e.g. 'admin' WARNING: used in database tables and migrations
+    verbose_name = 'A Demo App for the TOM Toolkit'  # Human-readable name for the application, e.g. “Administration”.
 
     def target_detail_buttons(self):
         """
@@ -29,7 +30,7 @@ class TomDemoappConfig(AppConfig):
         be included in the navbar. The `position` key, if included, should be either "left" or "right" to specify which
         side of the navbar the partial should be included on. If not included, a right side nav item is assumed.
         """
-        # TODO: the filenames of the partials probably don't need 'demo' in them b/c they're namespaced in the app folder
+        # TODO: These filenames probably don't need 'demo' in them b/c they're namespaced in the app folder
         return [{'partial': f'{self.name}/partials/navbar_demo.html', 'position': 'right'},
                 {'partial': f'{self.name}/partials/navbar_list_demo.html'}]
 

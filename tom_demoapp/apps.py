@@ -16,8 +16,8 @@ class TomDemoappConfig(AppConfig):
         - 'class': The CSS class of the button
         - 'text': The text of the button
         """
-        return {'namespace': 'demoapp:demo-page',
-                'title': 'Demo Target Button',
+        return {'namespace': f'{self.label}:demo-page',
+                'title': f'{self.label} Target Button',
                 'class': 'btn  btn-danger',
                 'text': 'Demo',
                 }
@@ -29,8 +29,9 @@ class TomDemoappConfig(AppConfig):
         be included in the navbar. The `position` key, if included, should be either "left" or "right" to specify which
         side of the navbar the partial should be included on. If not included, a right side nav item is assumed.
         """
-        return [{'partial': 'tom_demoapp/partials/navbar_demo.html', 'position': 'right'},
-                {'partial': 'tom_demoapp/partials/navbar_list_demo.html'}]
+        # TODO: the filenames of the partials probably don't need 'demo' in them b/c they're namespaced in the app folder
+        return [{'partial': f'{self.name}/partials/navbar_demo.html', 'position': 'right'},
+                {'partial': f'{self.name}/partials/navbar_list_demo.html'}]
 
     def include_url_paths(self):
         """
@@ -38,7 +39,7 @@ class TomDemoappConfig(AppConfig):
         This method should return a list of URL patterns to be included in the main URL configuration.
         """
         urlpatterns = [
-            path('demoapp/', include('tom_demoapp.urls', namespace='demoapp'))
+            path(f'{self.label}/', include(f'{self.name}.urls', namespace=f'{self.label}'))
         ]
         return urlpatterns
 
@@ -51,8 +52,9 @@ class TomDemoappConfig(AppConfig):
         return a dictionary containing new context for the accompanying partial.
         Typically, this partial will be a bootstrap card displaying some app specific user data.
         """
-        return [{'partial': 'tom_demoapp/partials/profile_demo.html',
-                 'context': 'tom_demoapp.templatetags.demo_extras.demo_profile_data'}]
+        # TODO: see if 'demo' couldn't be removed from these filenames
+        return [{'partial': f'{self.name}/partials/profile_demo.html',
+                 'context': f'{self.name}.templatetags.demo_extras.demo_profile_data'}]
 
     def user_lists(self):
         """
@@ -64,5 +66,6 @@ class TomDemoappConfig(AppConfig):
         Typically, this partial will be a bootstrap table displaying some app specific user list or similar.
 
         """
-        return [{'partial': 'tom_demoapp/partials/demo_user_list.html',
-                 'context': 'tom_demoapp.templatetags.demo_extras.demo_user_list'}]
+        # TODO: see if 'demo' couldn't be removed from these filenames
+        return [{'partial': f'{self.name}/partials/demo_user_list.html',
+                 'context': f'{self.name}.templatetags.demo_extras.demo_user_list'}]

@@ -18,9 +18,9 @@ class TomDemoappConfig(AppConfig):
         - 'text': The text of the button
         """
         return {'namespace': f'{self.label}:demo-page',
-                'title': f'{self.verbose_name} Target Button',
+                'title': f'{self.label} Target Button',
                 'class': 'btn  btn-danger',
-                'text': self.verbose_name,
+                'text': self.label,
                 }
 
     def nav_items(self):

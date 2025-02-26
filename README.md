@@ -40,3 +40,7 @@ To incorporate the app testing suite:
 4. To run canary tests, add the `--canary` flag, and running individual tests at various levels of verbosity is also 
 supported. (use `--help` for more information)
 5. Update your testing workflows as appropriate.
+
+For development and testing in a shell, you can run:
+
+    python <<app_name>>/tests/django_shell.py

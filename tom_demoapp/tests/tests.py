@@ -7,7 +7,7 @@ class TestDummy(TestCase):
     """
 
     def test_dummy(self):
-        pass
+        assert True
 
 
 @tag('canary')
@@ -17,4 +17,4 @@ class TestDummyCanary(TestCase):
     """
 
     def test_dummy_canary(self):
-        pass
+        assert True

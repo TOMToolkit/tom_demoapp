@@ -25,6 +25,7 @@ def boot_django():
                 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
             }
         },
+        TOM_NAME='Test TOM',
         INSTALLED_APPS=(
             'django.contrib.admin',
             'django.contrib.auth',

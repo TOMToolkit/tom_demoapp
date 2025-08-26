@@ -38,3 +38,11 @@ def demo_user_list(context):
     users = User.objects.filter(username__startswith='A')
     context = {'users': users}
     return context
+
+
+@register.inclusion_tag('tom_demoapp/partials/facility_button.html', takes_context=True)
+def demo_facility_button(context):
+    """
+
+    """
+    return context

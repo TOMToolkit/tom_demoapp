@@ -70,3 +70,15 @@ class TomDemoappConfig(AppConfig):
         # TODO: see if 'demo' couldn't be removed from these filenames
         return [{'partial': f'{self.name}/partials/demo_user_list.html',
                  'context': f'{self.name}.templatetags.demo_extras.demo_user_list'}]
+
+    def facility_buttons(self):
+        """"
+        Integration points for buttons linking to a facility
+
+        This method should return a list of dictionaries that include a `partial` key pointing to the path of the html
+        facility_button partial. The `context` key should point to the dot separated string path to the templatetag
+        that will return a dictionary containing new context for the accompanying partial.
+        Typically, this partial will be a bootstrap button linking to a given facility page.
+        """
+        return [{'partial': f'{self.name}/partials/facility_button.html',
+                 'context': f'{self.name}.templatetags.demo_extras.demo_facility_button'}]

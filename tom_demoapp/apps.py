@@ -30,7 +30,8 @@ class TomDemoappConfig(AppConfig):
         be included in the navbar. An optional `context` key may be included that should point to the dot separated
         string path to the templatetag that will return a dictionary containing new context for the accompanying
         partial. The `position` key, if included, should be either "left" or "right" to specify which
-        side of the navbar the partial should be included on. If not included, a left side nav item is assumed.
+        side of the navbar the partial should be included on. If not included, a left side nav item is assumed.  We
+        provide examples of both here.
         """
         # TODO: These filenames probably don't need 'demo' in them b/c they're namespaced in the app folder
         return [{'partial': f'{self.name}/partials/navbar_demo.html',

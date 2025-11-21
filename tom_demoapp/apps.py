@@ -11,17 +11,13 @@ class TomDemoappConfig(AppConfig):
     def target_detail_buttons(self):
         """
         Integration point for adding buttons to the target detail view.
-        This method should return a list of dictionaries, each containing the keys:
-        - 'namespace': The namespace of the app that provides the button's view
-        - 'title': The title of the button
-        - 'class': The CSS class of the button
-        - 'text': The text of the button
+        This method should return a list of dictionaries that include a `partial` key pointing to the path of the html
+        profile partial. The `context` key is optional and should point to the dot separated string path to the
+        templatetag that will return a dictionary containing new context for the accompanying partial.
+        Typically, this partial will be a button or link referencing the current target.
         """
-        return {'namespace': f'{self.label}:demo-page',
-                'title': f'{self.label} Target Button',
-                'class': 'btn  btn-danger',
-                'text': self.label,
-                }
+        return [{'partial': f'{self.name}/partials/demo_button.html',
+                 'context': f'{self.name}.templatetags.demo_extras.demo_button'}]
 
     def nav_items(self):
         """

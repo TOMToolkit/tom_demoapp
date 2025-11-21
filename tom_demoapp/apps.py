@@ -27,11 +27,17 @@ class TomDemoappConfig(AppConfig):
         """
         Integration point for adding items to the navbar.
         This method should return a list of dictionaries that include a `partial` key pointing to the html templates to
-        be included in the navbar. The `position` key, if included, should be either "left" or "right" to specify which
-        side of the navbar the partial should be included on. If not included, a left side nav item is assumed.
+        be included in the navbar. An optional `context` key may be included that should point to the dot separated
+        string path to the templatetag that will return a dictionary containing new context for the accompanying
+        partial. The `position` key, if included, should be either "left" or "right" to specify which
+        side of the navbar the partial should be included on. If not included, a left side nav item is assumed.  We
+        provide examples of both here.
         """
         # TODO: These filenames probably don't need 'demo' in them b/c they're namespaced in the app folder
-        return [{'partial': f'{self.name}/partials/navbar_demo.html', 'position': 'right'},
+        return [{'partial': f'{self.name}/partials/navbar_demo.html',
+                 'position': 'right'
+                 # 'context': f'{self.name}.templatetags.demo_extras.nav_context'
+                 },
                 {'partial': f'{self.name}/partials/navbar_list_demo.html'}]
 
     def include_url_paths(self):

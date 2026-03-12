@@ -8,6 +8,18 @@ class DemoServiceForm(BaseQueryForm):
     first_field = forms.CharField(required=False,
                                   label='An Example Field',
                                   help_text='Put important info here.')
+    ra = forms.FloatField(required=False, min_value=0., max_value=360.,
+                            label='R.A.',
+                            help_text='Right ascension in degrees')
+    dec = forms.FloatField(required=False, min_value=-90., max_value=90.,
+                        label='Dec.',
+                        help_text='Declination in degrees')
+    radius = forms.FloatField(required=False, min_value=0.,
+                        label='Cone Radius')
+
+    def simple_fields(self):
+        """Return List of fields to be included in the simple form."""
+        return ['first_field']
 
 
 class DemoDataService(DataService):

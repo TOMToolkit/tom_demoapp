@@ -90,3 +90,10 @@ class TomDemoappConfig(AppConfig):
                  'label': 'Demo Tab',
                  # 'context': f'{self.name}.templatetags.demo_extras.tab_context'
                  }]
+
+    def data_services(self):
+        """
+        integration point for including data services in the TOM
+        This method should return a list of dictionaries containing dot separated DataService classes
+        """
+        return [{'class': f'{self.name}.demo_dataservice.DemoDataService'}]

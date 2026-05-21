@@ -16,7 +16,6 @@ def demo_profile_data(user):
     exclude_fields = ['user', 'id']
     try:
         demo_profile_dict = model_to_dict(user.demoprofile, exclude=exclude_fields)
-        demo_profile_dict['demo_secret'] = "**************"
         return {
             'user': user,
             'demo_profile': user.demoprofile,

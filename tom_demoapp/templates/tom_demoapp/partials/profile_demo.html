@@ -14,13 +14,10 @@
       <hr>
     <dl class="row">
         {% for key, value in demo_profile_data.items %}
-            {% if value %}
-                <dt class="col-sm-6" >{% verbose_name user key %}</dt>
-                <dd class="col-sm-6">{{ value }}</dd>
-            {% endif %}
+            <dt class="col-sm-6">{% verbose_name user key %}</dt>
+            <dd class="col-sm-6">{{ value|default:"(not set)" }}</dd>
         {% empty %}
-            <p>No DemoApp Profile yet for this user.
-            </p>
+            <p>No DemoApp Profile yet for this user. Click the pencil icon to create one.</p>
         {% endfor %}
     </dl>
   </div>

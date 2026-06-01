@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-header bg-dark text-light">
         <div style="display: flex; justify-content: space-between">
-            <h4 class="card-title">Demo App Info</h4>
+            <h4 class="card-title">Demo App Info <span style="font-size: 0.7em;"><em>(version {{ version }})</em></span></h4>
             <div>
                 <a title="Edit" href="{% url 'demoapp:demo-profile-update' pk=demo_profile.id %}" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
             </div>

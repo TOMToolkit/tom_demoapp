@@ -19,6 +19,16 @@
         {% empty %}
             <p>No DemoApp Profile yet for this user. Click the pencil icon to create one.</p>
         {% endfor %}
+        {# demo_secret is rendered with the revealable-password partial. The plaintext is #}
+        {# passed in via the demo_profile_data templatetag using direct attribute access. #}
+        <dt class="col-sm-6">Demo Secret</dt>
+        <dd class="col-sm-6">
+            {% if demo_secret %}
+                {% include 'tom_common/partials/revealable_password_input.html' with value=demo_secret %}
+            {% else %}
+                (not set)
+            {% endif %}
+        </dd>
     </dl>
   </div>
 </div>

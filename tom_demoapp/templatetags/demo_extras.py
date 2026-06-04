@@ -14,13 +14,19 @@ def demo_profile_data(user):
     Returns the app specific user information as a dictionary to be used in the context of the above partial.
     """
 
-    exclude_fields = ['user', 'id']
+    # demo_secret is rendered separately via tom_common's revealable_password_input
+    # partial, so exclude it from the auto-iteration loop. model_to_dict goes
+    # through EncryptedModelField.value_from_object, which returns the REDACTED
+    # placeholder string for security; the partial needs the actual plaintext,
+    # which only direct attribute access provides.
+    exclude_fields = ['user', 'id', 'demo_secret']
     try:
         demo_profile_dict = model_to_dict(user.demoprofile, exclude=exclude_fields)
         return {
             'user': user,
             'demo_profile': user.demoprofile,
             'demo_profile_data': demo_profile_dict,
+            'demo_secret': user.demoprofile.demo_secret,  # direct access → plaintext
             'version': __version__,  # from tom_demoapp/__init__.py
         }
     except DemoProfile.DoesNotExist:
@@ -28,6 +34,7 @@ def demo_profile_data(user):
         return {'user': user,
                 'demo_profile': user.demoprofile,
                 'demo_profile_data': {},
+                'demo_secret': user.demoprofile.demo_secret,
                 'version': __version__}  # from tom_demoapp/__init__.py
 
 

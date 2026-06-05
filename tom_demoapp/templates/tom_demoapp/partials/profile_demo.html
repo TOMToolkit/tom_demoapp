@@ -14,14 +14,21 @@
       <hr>
     <dl class="row">
         {% for key, value in demo_profile_data.items %}
-            {% if value %}
-                <dt class="col-sm-6" >{% verbose_name user key %}</dt>
-                <dd class="col-sm-6">{{ value }}</dd>
-            {% endif %}
+            <dt class="col-sm-6">{% verbose_name user key %}</dt>
+            <dd class="col-sm-6">{{ value|default:"(not set)" }}</dd>
         {% empty %}
-            <p>No DemoApp Profile yet for this user.
-            </p>
+            <p>No DemoApp Profile yet for this user.</p>
         {% endfor %}
+        {# demo_secret is rendered with the revealable-password partial. The plaintext is #}
+        {# passed in via the demo_profile_data templatetag using direct attribute access. #}
+        <dt class="col-sm-6">Demo Secret</dt>
+        <dd class="col-sm-6">
+            {% if demo_secret %}
+                {% include 'tom_common/partials/revealable_password_input.html' with value=demo_secret %}
+            {% else %}
+                (not set)
+            {% endif %}
+        </dd>
     </dl>
   </div>
 </div>

@@ -2,7 +2,6 @@ from django import template
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 
-from tom_demoapp import __version__
 from tom_demoapp.models import DemoProfile
 
 register = template.Library()
@@ -27,7 +26,6 @@ def demo_profile_data(user):
             'demo_profile': user.demoprofile,
             'demo_profile_data': demo_profile_dict,
             'demo_secret': user.demoprofile.demo_secret,  # direct access → plaintext
-            'version': __version__,  # from tom_demoapp/__init__.py
         }
     except DemoProfile.DoesNotExist:
         DemoProfile.objects.create(user=user)
@@ -35,7 +33,7 @@ def demo_profile_data(user):
                 'demo_profile': user.demoprofile,
                 'demo_profile_data': {},
                 'demo_secret': user.demoprofile.demo_secret,
-                'version': __version__}  # from tom_demoapp/__init__.py
+                }
 
 
 @register.inclusion_tag('tom_demoapp/partials/demo_user_list.html', takes_context=True)

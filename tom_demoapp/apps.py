@@ -5,7 +5,7 @@ from django.urls import path, include
 class TomDemoappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'tom_demoapp'  # Full Python path to the application, e.g. 'django.contrib.admin'
-    label = 'demoapp'  # Short name for the application, e.g. 'admin' WARNING: used in database tables and migrations
+    short_name = 'demoapp'  # Short name for the application, e.g. 'admin'
     verbose_name = 'A Demo App for the TOM Toolkit'  # Human-readable name for the application, e.g. “Administration”.
 
     def target_detail_buttons(self):
@@ -42,7 +42,7 @@ class TomDemoappConfig(AppConfig):
         This method should return a list of URL patterns to be included in the main URL configuration.
         """
         urlpatterns = [
-            path(f'{self.label}/', include(f'{self.name}.urls', namespace=f'{self.label}'))
+            path(f'{self.short_name}/', include(f'{self.name}.urls', namespace=f'{self.short_name}'))
         ]
         return urlpatterns
 

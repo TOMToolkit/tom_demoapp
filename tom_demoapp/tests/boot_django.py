@@ -16,6 +16,8 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), APP_NAME))
 def boot_django():
     settings.configure(
         BASE_DIR=BASE_DIR,
+        # SECURITY WARNING: keep the secret key used in production secret! This is an example key for testing only.
+        SECRET_KEY='v5j-rg7sc+leg-m+vf947vi34+fs1%+$m%*l%sb7^fnwb$-29y',
         DEBUG=True,
         DATABASES={
             'default': {

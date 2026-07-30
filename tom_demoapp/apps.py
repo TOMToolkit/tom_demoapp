@@ -97,3 +97,24 @@ class TomDemoappConfig(AppConfig):
         This method should return a list of dictionaries containing dot separated DataService classes
         """
         return [{'class': f'{self.name}.demo_dataservice.DemoDataService'}]
+
+    def observation_facilities(self):
+        """
+        Integration point for including observation facilities in the TOM.
+
+        This method should return a list of dictionaries, one per facility.
+        The keys and values of the configuration dictionary:
+         - `class` (required): dot separated path to a Facility class (an extension of
+           BaseRoboticObservationFacility or BaseManualObservationFacility).
+         - `url` (optional): the namespaced Django URL name of the facility's landing page,
+           used as its menu item in the navbar "Facilities" dropdown. Omit `url` for a facility
+           with no landing page. It is still registered so there will be an observe button
+           on the TargetDetail page and an ObservationCreateView with observation forms).
+           However, without a `url` key:value, this facility gets no navbar menu item.
+
+        Facilities listed here are combined with settings.TOM_FACILITY_CLASSES by
+        ``tom_observations.facility.get_service_classes()``, so installing the app is all a
+        TOM needs to do -- no settings changes required.
+        """
+        return [{'class': f'{self.name}.demo_facility.DemoFacility',
+                 'url': f'{self.short_name}:facility-index'}]

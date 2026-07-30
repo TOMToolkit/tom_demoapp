@@ -1,0 +1,21 @@
+{% extends 'tom_common/base.html' %}
+{% load crispy_forms_tags observation_extras %}
+
+{% block title %}Submit Observation{% endblock %}
+
+{% block content %}
+
+{# A minimal facility observation page supplied to replace the default #}
+{# tom_observations/observation_form.html, which adds visibility and lunar-distance #}
+{# plots. (Default template replaced by overriding  template_name attribute #}
+{# in the DemoFacility class. #}
+
+{{ form|as_crispy_errors }}
+<h3>Submit an observation to {{ form.facility.value }} for
+  <a href="{% url 'targets:detail' pk=target.id %}">{{ target.name }}</a></h3>
+
+{% for observation_type, observation_form in observation_type_choices %}
+  <h5>{{ observation_type|display_obs_type }}</h5>
+  {% crispy observation_form %}
+{% endfor %}
+{% endblock %}

@@ -7,8 +7,8 @@
 
 {# A minimal facility observation page supplied to replace the default #}
 {# tom_observations/observation_form.html, which adds visibility and lunar-distance #}
-{# plots. (Default template replaced by overriding  template_name attribute #}
-{# in the DemoFacility class. #}
+{# plots. (The default template is replaced by overriding the template_name attribute #}
+{# in the DemoFacility class.) #}
 
 {{ form|as_crispy_errors }}
 <h3>Submit an observation to {{ form.facility.value }} for

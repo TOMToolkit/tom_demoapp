@@ -1,16 +1,21 @@
+from __future__ import annotations
+
 from django.apps import AppConfig
 from django.urls import path, include
 
 
 class TomDemoappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'tom_demoapp'  # Full Python path to the application, e.g. 'django.contrib.admin'
-    short_name = 'demoapp'  # Short name for the application, e.g. 'admin'
-    verbose_name = 'A Demo App for the TOM Toolkit'  # Human-readable name for the application, e.g. “Administration”.
+    name = 'tom_demoapp'  # required by Django, the Python path to the app's package; from django-admin startapp
+    verbose_name = 'A Demo App for the TOM Toolkit'  # optional, Django human-readable name for the application
+
+    # the following attributes are TOMToolkit suggestions (not Django AppConfig attributes).
+    route_prefix = 'demoapp'  # useful to prefix the urlpatterns in urls.py. So, pages live at HOST:PORT/demoapp/...
+    short_name = 'demoapp'  # you might use this if self.name (above) isn't to your liking
 
     def target_detail_buttons(self):
-        """
-        Integration point for adding buttons to the target detail view.
+        """Integration point for adding buttons to the target detail view.
+
         This method should return a list of dictionaries that include a `partial` key pointing to the path of the html
         profile partial. The `context` key is optional and should point to the dot separated string path to the
         templatetag that will return a dictionary containing new context for the accompanying partial.
@@ -20,8 +25,8 @@ class TomDemoappConfig(AppConfig):
                  'context': f'{self.name}.templatetags.demo_extras.demo_button'}]
 
     def nav_items(self):
-        """
-        Integration point for adding items to the navbar.
+        """Integration point for adding items to the navbar.
+
         This method should return a list of dictionaries that include a `partial` key pointing to the html templates to
         be included in the navbar. An optional `context` key may be included that should point to the dot separated
         string path to the templatetag that will return a dictionary containing new context for the accompanying
@@ -29,26 +34,35 @@ class TomDemoappConfig(AppConfig):
         side of the navbar the partial should be included on. If not included, a left side nav item is assumed.  We
         provide examples of both here.
         """
-        # TODO: These filenames probably don't need 'demo' in them b/c they're namespaced in the app folder
-        return [{'partial': f'{self.name}/partials/navbar_demo.html',
-                 'position': 'right'
-                 # 'context': f'{self.name}.templatetags.demo_extras.nav_context'
-                 },
-                {'partial': f'{self.name}/partials/navbar_list_demo.html'}]
+        return [
+            {'partial': f'{self.name}/partials/navbar_demo.html',
+             'position': 'right'
+             # 'context': f'{self.name}.templatetags.demo_extras.nav_context'
+             },
+            {'partial': f'{self.name}/partials/navbar_list_demo.html'}
+        ]
 
     def include_url_paths(self):
-        """
-        Integration point for adding URL patterns to the Tom Common URL configuration.
+        """Integration point for adding URL patterns to the Tom Common URL configuration.
+
         This method should return a list of URL patterns to be included in the main URL configuration.
+        The implementation below uses ``include()`` to gather urlpatterns from ``urls.py``.
+
+        Refer to your URLs in your templates as '<namespace>:<name>', like this:
+        ```html
+        {% url 'tom_demoapp:<name>' %}
+        ```
+        The ``<namespace>`` half of the URL name above comes from ``app_name`` in ``urls.py``
+        and the ``<name>`` half is the ``name=`` argument passed to ``path()`` in your
+        ``urls.py`` urlpatterns.
         """
         urlpatterns = [
-            path(f'{self.short_name}/', include(f'{self.name}.urls', namespace=f'{self.short_name}'))
+            path(f'{self.route_prefix}/', include(f'{self.name}.urls'))
         ]
         return urlpatterns
 
     def profile_details(self):
-        """
-        Integration point for adding items to the user profile page.
+        """Integration point for adding items to the user profile page.
 
         This method should return a list of dictionaries that include a `partial` key pointing to the path of the html
         profile partial. The `context` key should point to the dot separated string path to the templatetag that will
@@ -60,8 +74,7 @@ class TomDemoappConfig(AppConfig):
                  'context': f'{self.name}.templatetags.demo_extras.demo_profile_data'}]
 
     def user_lists(self):
-        """
-        Integration point for adding items to the user list page.
+        """Integration point for adding items to the user list page.
 
         This method should return a list of dictionaries that include a `partial` key pointing to the path of the html
         user_list partial. The `context` key should point to the dot separated string path to the templatetag that will
@@ -74,8 +87,7 @@ class TomDemoappConfig(AppConfig):
                  'context': f'{self.name}.templatetags.demo_extras.demo_user_list'}]
 
     def target_detail_tabs(self):
-        """
-        Integration point for adding tabs to the target detail page.
+        """Integration point for adding tabs to the target detail page.
 
         This method should return a list of dictionaries that include a `partial` key pointing to the path of the html
         target_detail_tab partial.
@@ -92,29 +104,17 @@ class TomDemoappConfig(AppConfig):
                  }]
 
     def data_services(self):
-        """
-        integration point for including data services in the TOM
+        """Integration point for including data services in the TOM.
+
         This method should return a list of dictionaries containing dot separated DataService classes
         """
         return [{'class': f'{self.name}.demo_dataservice.DemoDataService'}]
 
-    def observation_facilities(self):
-        """
-        Integration point for including observation facilities in the TOM.
+    def observation_facilities(self) -> list[dict[str, str]]:
+        """Integration point for including this app's observation facilities in the TOM.
 
-        This method should return a list of dictionaries, one per facility.
-        The keys and values of the configuration dictionary:
-         - `class` (required): dot separated path to a Facility class (an extension of
-           BaseRoboticObservationFacility or BaseManualObservationFacility).
-         - `url` (optional): the namespaced Django URL name of the facility's landing page,
-           used as its menu item in the navbar "Facilities" dropdown. Omit `url` for a facility
-           with no landing page. It is still registered so there will be an observe button
-           on the TargetDetail page and an ObservationCreateView with observation forms).
-           However, without a `url` key:value, this facility gets no navbar menu item.
-
-        Facilities listed here are combined with settings.TOM_FACILITY_CLASSES by
-        ``tom_observations.facility.get_service_classes()``, so installing the app is all a
-        TOM needs to do -- no settings changes required.
+        Returns a list of ``{'class': <dot separated path to a Facility class>}`` dicts, consumed by
+        ``tom_observations.facility.get_service_classes()``. Whether or not a facility gets a navbar
+        menu item is declared on the facility class -- see ``demo_facility.py``.
         """
-        return [{'class': f'{self.name}.demo_facility.DemoFacility',
-                 'url': f'{self.short_name}:facility-index'}]
+        return [{'class': f'{self.name}.demo_facility.DemoFacility'}]

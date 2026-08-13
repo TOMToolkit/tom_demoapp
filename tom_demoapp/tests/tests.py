@@ -1,4 +1,10 @@
 from django.test import tag, TestCase
+from django.urls import reverse
+
+from tom_observations.facility import get_service_classes
+from tom_observations.templatetags.observation_extras import observation_facilities_list
+
+from tom_demoapp.demo_facility import DemoFacility
 
 
 class TestDummy(TestCase):
@@ -25,16 +31,18 @@ class TestObservationFacilitiesIntegrationPoint(TestCase):
 
     def test_demo_facility_auto_registers(self):
         # installing the app is enough: no TOM_FACILITY_CLASSES settings entry needed
-        from tom_observations.facility import get_service_classes
         self.assertIn('DemoFacility', get_service_classes())
 
     def test_navbar_facilities_menu_lists_demo_facility(self):
-        from tom_observations.templatetags.observation_extras import observation_facilities_list
         context = observation_facilities_list({})
         facility_names = [facility['name'] for facility in context['observation_facilities']]
         self.assertIn('DemoFacility', facility_names)
 
-    def test_facility_landing_page_renders(self):
-        from django.urls import reverse
-        response = self.client.get(reverse('demoapp:facility-index'))
+    def test_facility_detail_page_renders(self):
+        response = self.client.get(reverse('tom_demoapp:facility-detail'))
         self.assertContains(response, 'DemoFacility')
+
+    def test_detail_url_name_resolves(self):
+        """DemoFacility.detail_url_name must reverse to the mounted detail page --
+        its namespace half is urls.py's app_name, derived from the AppConfig's name."""
+        self.assertEqual(reverse(DemoFacility.detail_url_name), '/demoapp/facility/')

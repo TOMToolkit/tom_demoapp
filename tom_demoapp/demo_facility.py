@@ -15,6 +15,8 @@ from django import forms
 
 from tom_observations.facility import BaseRoboticObservationFacility, BaseRoboticObservationForm
 
+from tom_demoapp.apps import TomDemoappConfig
+
 
 class DemoFacilityForm(BaseRoboticObservationForm):
     """The observation-request form for the DemoFacility.
@@ -42,6 +44,10 @@ class DemoFacility(BaseRoboticObservationFacility):
     and report real state in ``get_observation_status()``.
     """
     name = 'DemoFacility'
+
+    # setting detail_url_name adds this facility to the Facilities navbar menu
+    detail_url_name = f'{TomDemoappConfig.name}:facility-detail'  # 'tom_demoapp:facility-detail'
+
     template_name = 'tom_demoapp/observation_form.html'  # override default with simple, stub
     observation_types: list[tuple[str, str]] = [
         ('OBSERVATION', 'Demo Observation'),

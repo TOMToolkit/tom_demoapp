@@ -25,14 +25,14 @@ class DemoFacilityForm(BaseRoboticObservationForm):
     The base class contributes the common hidden fields (facility, target_id,
     observation_type) and the submit buttons.
     """
-    exposure_time = forms.IntegerField(min_value=1, help_text='Exposure time in seconds.')
-    exposure_count = forms.IntegerField(min_value=1, initial=1, help_text='Number of exposures.')
+    example_field1 = forms.IntegerField(min_value=1, initial=100, help_text='Exposure time in seconds.')
+    example_field2 = forms.IntegerField(min_value=1, initial=1, help_text='Number of exposures.')
 
     def layout(self) -> Layout:
         """Return the crispy-forms Layout for the facility-specific fields."""
         return Layout(
-            'exposure_time',
-            'exposure_count',
+            'example_field1',
+            'example_field2',
         )
 
 

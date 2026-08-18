@@ -6,12 +6,12 @@ from django.urls import path, include
 
 class TomDemoappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
+    # App names for internal use. `name` and `verbose_name` are used by Django, `short_name` is used by the TOMToolkit
     name = 'tom_demoapp'  # required by Django, the Python path to the app's package; from django-admin startapp
     verbose_name = 'A Demo App for the TOM Toolkit'  # optional, Django human-readable name for the application
+    short_name = 'demoapp'  # Optional: This is most often used to remove the "tom" from self.name's "tom_****"
 
-    # the following attributes are TOMToolkit suggestions (not Django AppConfig attributes).
-    route_prefix = 'demoapp'  # useful to prefix the urlpatterns in urls.py. So, pages live at HOST:PORT/demoapp/...
-    short_name = 'demoapp'  # you might use this if self.name (above) isn't to your liking
+    route_prefix = 'short_name'  # useful to prefix the urlpatterns in urls.py. So, pages live at HOST:PORT/demoapp/...
 
     def target_detail_buttons(self):
         """Integration point for adding buttons to the target detail view.

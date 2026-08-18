@@ -26,6 +26,8 @@ def boot_django():
             }
         },
         TOM_NAME='Test TOM',
+
+        ROOT_URLCONF='tom_common.urls',  # pull in installed app's include_url_paths() (needed to reverse() URLs)
         INSTALLED_APPS=TOMTOOKIT_INSTALLED_APPS+[APP_NAME],
         SITE_ID=1,
         EXTRA_FIELDS={},
